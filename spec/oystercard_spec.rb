@@ -29,4 +29,12 @@ describe Oystercard do
       expect { subject.deduct 5 }.to change{ subject.balance }.by -5
     end
   end
+
+  describe "#touch_in" do
+
+    it "checks if card has been used to #touch_in" do
+      card = Oystercard.new
+      expect(subject.touch_in).to eq true
+    end
+  end
 end
