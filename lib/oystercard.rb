@@ -1,13 +1,15 @@
 class Oystercard
 
   attr_reader :balance
+  LIMIT = 90
 
   def initialize
     @balance = 0
   end
 
   def top_up(value)
-    @balance = @balance + value
+    fail "Top up limit of #{LIMIT} exceeded" if value > LIMIT
+    @balance += value
   end
 
 end
