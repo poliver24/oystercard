@@ -1,4 +1,4 @@
-class Oystercard
+class OysterCard
 
   attr_reader :balance
   LIMIT = 90
