@@ -18,7 +18,7 @@ describe OysterCard do
 
     it "raises an error when #top_up value exceeds limit" do
       card = OysterCard.new
-      expect{ subject.top_up(95) }.to raise_error("Top up limit of #{Oystercard::LIMIT} exceeded")
+      expect{ subject.top_up(95) }.to raise_error("Top up limit of #{OysterCard::LIMIT} exceeded")
     end
   end
 
