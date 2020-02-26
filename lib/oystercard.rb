@@ -3,6 +3,7 @@ class OysterCard
   attr_reader :balance
   MAXIMUM_BALANCE = 90
   MINIMUM_BALANCE = 1
+  MINIMUM_FARE = 1.5
 
   def initialize
     @balance = 0
@@ -14,9 +15,7 @@ class OysterCard
     @balance += value
   end
 
-  def deduct(amount)
-    @balance -= amount
-  end
+
 
   def touch_in
     raise "Not enough balance" if @balance <= MINIMUM_BALANCE
@@ -24,12 +23,17 @@ class OysterCard
   end
 
   def touch_out
+    @balance -= MINIMUM_FARE
     @in_journey = false
   end
 
   def in_journey?
     # => !! forces a predicate method to return ONLY true or false (no NIL)
     !!@in_journey
+  end
+private
+  def deduct(amount)
+    @balance -= amount
   end
 
 end

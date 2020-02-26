@@ -32,7 +32,7 @@ describe OysterCard do
 
     it "#deducts value from balance" do
       # card = OysterCard.new
-      expect { subject.deduct 5 }.to change{ subject.balance }.by -5
+      expect { subject.send(:deduct, 5) }.to change{ subject.balance }.by -5
     end
   end
 
@@ -62,6 +62,7 @@ describe OysterCard do
       subject.top_up(10)
       subject.touch_in
       subject.touch_out
+      expect {subject.touch_out}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
       expect(subject).not_to be_in_journey
     end
   end
