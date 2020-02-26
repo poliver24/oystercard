@@ -30,7 +30,7 @@ describe OysterCard do
 
 
   # describe "#deduct" do
-  
+
   # after moving this method into touch_out method
   # we test its functionality within touch_out method so dont need to test it
   # independently
@@ -57,7 +57,7 @@ describe OysterCard do
     end
 
     it "raises an error if card balance is less than minimum balance" do
-      expect{(subject.touch_in)}.not_to raise_error("Not enough balance") if subject.balance >= OysterCard::MINIMUM_BALANCE
+      expect{(subject.touch_in)}.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
     end
 
   end
