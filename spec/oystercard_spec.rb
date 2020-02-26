@@ -28,13 +28,18 @@ describe OysterCard do
     end
   end
 
-  describe "#deduct" do
 
-    it "#deducts value from balance" do
-      # card = OysterCard.new
-      expect { subject.send(:deduct, 5) }.to change{ subject.balance }.by -5
-    end
-  end
+  # describe "#deduct" do
+  
+  # after moving this method into touch_out method
+  # we test its functionality within touch_out method so dont need to test it
+  # independently
+  #
+  #   it "#deducts value from balance" do
+  #     # card = OysterCard.new
+  #     expect { subject.deduct 5 }.to change{ subject.balance }.by -5
+  #   end
+  # end
 
   describe "#in_journey?" do
 
@@ -61,7 +66,6 @@ describe OysterCard do
     it "can touch out" do
       subject.top_up(10)
       subject.touch_in
-      subject.touch_out
       expect {subject.touch_out}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
       expect(subject).not_to be_in_journey
     end

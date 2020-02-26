@@ -23,15 +23,17 @@ class OysterCard
   end
 
   def touch_out
-    @balance -= MINIMUM_FARE
+    deduct(MINIMUM_FARE)
     @in_journey = false
+    return @balance
   end
 
   def in_journey?
     # => !! forces a predicate method to return ONLY true or false (no NIL)
     !!@in_journey
   end
-private
+
+  private
   def deduct(amount)
     @balance -= amount
   end
