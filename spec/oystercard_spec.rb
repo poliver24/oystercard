@@ -73,17 +73,33 @@ describe OysterCard do
     end
 
     it "raises an error if card balance is less than minimum balance" do
-      expect{(subject.touch_in)}.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
+      expect { (subject.touch_in) }.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
     end
 
   end
 
   describe "#touch_out" do
-    let(:station){ double(:station)}
+    let(:entry_station){ double(:entry_station)}
+    let(:exit_station){ double(:exit_station)}
+
     it "can touch out" do
       subject.top_up(10)
-      subject.touch_in(station)
-      expect {subject.touch_out(station)}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
+      subject.touch_in(entry_station)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by (-OysterCard::MINIMUM_FARE)
+    end
+
+    it "stores exit station" do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.exit_station).to eq exit_station
+    end
+
+    it "creates a journey from entry_station to exit_station and stores it as hash" do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include { {entry_station => exit_station} }# , exit_station => exit_station}]
     end
   end
 end
