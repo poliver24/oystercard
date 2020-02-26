@@ -57,7 +57,7 @@ describe OysterCard do
     it "can touch in" do
       subject.top_up(10)
       subject.touch_in(station)
-      expect(subject).to be_in_journey
+
     end
 
     it "remembers touch_in station " do
@@ -79,7 +79,7 @@ describe OysterCard do
       subject.top_up(10)
       subject.touch_in(station)
       expect {subject.touch_out}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
-      expect(subject).not_to be_in_journey
+      
     end
   end
 end
