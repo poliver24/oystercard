@@ -36,11 +36,33 @@ describe OysterCard do
     end
   end
 
-  describe "#touch_in" do
+  describe "#in_journey?" do
 
-    it "checks if card has been used to #touch_in" do
+    it "initially set the card's status to not in journey" do
       # card = OysterCard.new
-      expect(subject.touch_in).to eq true
+      expect(subject).not_to be_in_journey
+    end
+  end
+
+  describe "#touch_in" do
+    it "can touch in" do
+      subject.top_up(10)
+      subject.touch_in
+      expect(subject).to be_in_journey
+    end
+
+    it "raises an error if card balance is less than minimum balance" do
+      expect{(subject.touch_in)}.not_to raise_error("Not enough balance") if subject.balance >= OysterCard::MINIMUM_BALANCE
+    end
+
+  end
+
+  describe "#touch_out" do
+    it "can touch out" do
+      subject.top_up(10)
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
     end
   end
 end
