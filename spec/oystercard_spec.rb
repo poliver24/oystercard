@@ -79,7 +79,6 @@ describe OysterCard do
       subject.top_up(10)
       subject.touch_in(station)
       expect {subject.touch_out}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
-      
     end
   end
 end

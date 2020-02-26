@@ -23,19 +23,18 @@ class OysterCard
   def touch_in(station)
     raise "Not enough balance" if @balance < MINIMUM_FARE
     @entry_station = station
-    @in_journey = true 
+    @in_journey = true
   end
 
   def touch_out
     deduct(MINIMUM_FARE)
     @in_journey = false
-    return @balance
     @entry_station = nil
   end
 
   def in_journey?
     # => !! forces a predicate method to return ONLY true or false (no NIL)
-    !!entry_station
+    !!@entry_station
   end
 
   private
