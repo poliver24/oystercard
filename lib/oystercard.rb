@@ -20,7 +20,6 @@ class OysterCard
   end
 
 
-
   def touch_in(station)
     raise "Not enough balance" if @balance < MINIMUM_FARE
     @entry_station = station
@@ -38,7 +37,8 @@ class OysterCard
 
   def in_journey?
     # => !! forces a predicate method to return ONLY true or false (no NIL)
-    !!@entry_station
+    # why entry_station and not @entry_station
+    !!entry_station
   end
 
   private

@@ -8,7 +8,6 @@ describe OysterCard do
 
   it "initializes with empty list of journeys" do
     expect(subject.journeys).to be_empty
-
   end
 
   describe "#top_up" do
@@ -46,15 +45,16 @@ describe OysterCard do
   #   end
   # end
 
-  describe "#in_journey?" do
-
-    it "initially set the card's status to not in journey" do
-      # card = OysterCard.new
-      expect(subject).not_to be_in_journey
-    end
-  end
+  # describe "#in_journey?" do
+  #
+  #   it "initially set the card's status to not in journey" do
+  #     # card = OysterCard.new
+  #     expect(subject).not_to be_in_journey
+  #   end
+  # end
 
   describe "#touch_in" do
+
     let(:station){ double(:station)}
 
     it { is_expected.to respond_to(:touch_in).with(1).argument }
@@ -79,27 +79,30 @@ describe OysterCard do
   end
 
   describe "#touch_out" do
+
+    before(:each) do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+    end
+
     let(:entry_station){ double(:entry_station)}
     let(:exit_station){ double(:exit_station)}
 
     it "can touch out" do
-      subject.top_up(10)
-      subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by (-OysterCard::MINIMUM_FARE)
     end
 
     it "stores exit station" do
-      subject.top_up(10)
-      subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.exit_station).to eq exit_station
     end
 
     it "creates a journey from entry_station to exit_station and stores it as hash" do
-      subject.top_up(10)
-      subject.touch_in(entry_station)
       subject.touch_out(exit_station)
       expect(subject.journeys).to include { {entry_station => exit_station} }# , exit_station => exit_station}]
     end
+
+
+
   end
 end
