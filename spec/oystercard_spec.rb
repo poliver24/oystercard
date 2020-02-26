@@ -50,10 +50,21 @@ describe OysterCard do
   end
 
   describe "#touch_in" do
+    let(:station){ double(:station)}
+
+    it { is_expected.to respond_to(:touch_in).with(1).argument }
+
     it "can touch in" do
       subject.top_up(10)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject).to be_in_journey
+    end
+
+    it "remembers touch_in station " do
+      subject.top_up(10)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq(station)
+
     end
 
     it "raises an error if card balance is less than minimum balance" do
@@ -63,9 +74,10 @@ describe OysterCard do
   end
 
   describe "#touch_out" do
+    let(:station){ double(:station)}
     it "can touch out" do
       subject.top_up(10)
-      subject.touch_in
+      subject.touch_in(station)
       expect {subject.touch_out}.to change {subject.balance}.by (-OysterCard::MINIMUM_FARE)
       expect(subject).not_to be_in_journey
     end
