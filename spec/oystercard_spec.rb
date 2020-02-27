@@ -75,7 +75,6 @@ describe OysterCard do
     it "raises an error if card balance is less than minimum balance" do
       expect { (subject.touch_in) }.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
     end
-
   end
 
   describe "#touch_out" do
@@ -101,8 +100,6 @@ describe OysterCard do
       subject.touch_out(exit_station)
       expect(subject.journeys).to include { {entry_station => exit_station} }# , exit_station => exit_station}]
     end
-
-
 
   end
 end
