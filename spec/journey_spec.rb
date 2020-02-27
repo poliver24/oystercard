@@ -1,5 +1,14 @@
 require 'journey'
 describe Journey do
+
+  describe "#in_journey?" do
+
+    it "initially set the card's status to not in journey" do
+      # card = OysterCard.new
+      expect(subject).not_to be_in_journey
+    end
+  end
+
   describe "#touch_in" do
 
     let(:station){ double(:station)}
@@ -40,6 +49,23 @@ describe Journey do
       subject.touch_out(exit_station)
       expect(subject.complete_journey).to include { {entry_station => exit_station} }
     end
+  end
+
+  describe 'fare' do
+
+    it 'returns penalty fare if no entry_station' do
+      subject.touch_out('work')
+      expect(subject.fare).to eq Journey::PENALTY_FARE
+    end
+
+    it 'returns penalty fare if no exit_station' do
+      subject.touch_in('home')
+      expect(subject.fare).to eq Journey::PENALTY_FARE
+    end
+
+    # it 'calculates fare for journey' do
+    #
+    # end
 
   end
 end

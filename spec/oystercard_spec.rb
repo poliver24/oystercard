@@ -32,8 +32,12 @@ describe OysterCard do
       subject.top_up(maximum_balance)
       expect { subject.top_up 1 }.to raise_error("Maximum balance of #{OysterCard::MAXIMUM_BALANCE} exceeded")
     end
+    it "raises an error if card balance is less than minimum balance" do
+      expect { (subject.touch_in) }.not_to raise_error("Not enough balance") if subject.balance > Journey::MINIMUM_FARE
+    end
   end
 end
+
 
 
   # describe "#deduct" do
@@ -75,10 +79,6 @@ end
   #
   #   end
   #
-  #   it "raises an error if card balance is less than minimum balance" do
-  #     expect { (subject.touch_in) }.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
-  #   end
-  # end
 
   # describe "#touch_out" do
   #
