@@ -77,7 +77,6 @@ describe OysterCard do
     it "raises an error if card balance is less than minimum balance" do
       expect { (subject.touch_in) }.not_to raise_error("Not enough balance") if subject.balance > OysterCard::MINIMUM_FARE
     end
-
   end
 
   describe "#touch_out" do
