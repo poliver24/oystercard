@@ -1,4 +1,6 @@
+
 require "oystercard"
+require "station"
 
 describe OysterCard do
 
@@ -103,8 +105,6 @@ describe OysterCard do
       subject.touch_out(exit_station)
       expect(subject.journeys).to include { {entry_station => exit_station} }
     end
-
-
 
   end
 end
