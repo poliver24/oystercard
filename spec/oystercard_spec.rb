@@ -85,8 +85,10 @@ describe OysterCard do
       subject.touch_in(entry_station)
     end
 
-    let(:entry_station){ double(:entry_station)}
-    let(:exit_station){ double(:exit_station)}
+    let(:entry_station){ double(:entry_station) }
+    let(:exit_station){ double(:exit_station) }
+
+    it { is_expected.to respond_to(:touch_out).with(1).argument }
 
     it "can touch out" do
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by (-OysterCard::MINIMUM_FARE)
@@ -99,7 +101,7 @@ describe OysterCard do
 
     it "creates a journey from entry_station to exit_station and stores it as hash" do
       subject.touch_out(exit_station)
-      expect(subject.journeys).to include { {entry_station => exit_station} }# , exit_station => exit_station}]
+      expect(subject.journeys).to include { {entry_station => exit_station} }
     end
 
 
