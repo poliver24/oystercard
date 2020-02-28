@@ -60,6 +60,7 @@ describe Journey do
 
     it 'returns penalty fare if no exit_station' do
       subject.touch_in('home')
+      subject.touch_in('home')
       expect(subject.fare).to eq Journey::PENALTY_FARE
     end
 
